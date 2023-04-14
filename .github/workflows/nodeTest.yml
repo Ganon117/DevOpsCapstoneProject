@@ -16,14 +16,18 @@ jobs:
       run: npm --version
     - uses: actions/checkout@v3
     - run: npm test
-    - name: Docker Log and Push container
+    - name: Docker Log
       if: success()
       uses: docker/login-action@v2
       with:
           username: ${{ secret.USER }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          if: success()
-          uses: docker/build-push-action@v4
+          password: ${{ secrets.PASS}}
+    - name: Docker Push
+      if: success()
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+          context: .
           push: true
-          tags: ganon117/app:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       
