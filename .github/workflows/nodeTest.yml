@@ -20,7 +20,7 @@ jobs:
       if: success()
       uses: docker/login-action@v2
       with:
-          username: ${{ secret.USER }}
+          username: ${{ secrets.USER }}
           password: ${{ secrets.PASS}}
     - name: Docker Push
       if: success()
