@@ -10,9 +10,12 @@ jobs:
    runs-on: ubuntu-latest
    container: node
    steps:
-    - run: node --version
-    - run: npm --version
+    - name: Check version node
+      run: node --version
+    - name: Check version npm
+      run: npm --version
     - uses: actions/checkout@v3
     - run: npm test
     - run: npm install
-    - run: node src/App.js
+    - run: node sApp.js
+      working-directory: ./src
