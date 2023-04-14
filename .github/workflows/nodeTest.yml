@@ -22,7 +22,7 @@ jobs:
       with:
           file: ./Docker/Dockerfile
           username: ${{ secrets.USER }}
-          password: ${{ secrets.PASS}}
+          password: ${{ secrets.PASS }}
     - name: Docker Push
       if: success()
       uses: docker/build-push-action@v4
