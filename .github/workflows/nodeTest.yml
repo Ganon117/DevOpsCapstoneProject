@@ -8,7 +8,7 @@ on: push
 jobs:
   build-node:
    runs-on: ubuntu-latest
-   container: node 16
+   container: node
    steps:
     - run: node --version
     - run: npm --version
