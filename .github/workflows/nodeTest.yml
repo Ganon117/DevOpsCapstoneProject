@@ -18,22 +18,4 @@ jobs:
     - run: npm test
     - name: Docker Log
       if: success()
-      uses: docker/login-action@v2
-      with:
-          file: ./Docker/Dockerfile
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASS }}
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v3
-      with:
-          images: my-docker-hub-namespace/my-docker-hub-repository  
-    - name: Docker Push
-      if: success()
-      uses: docker/build-push-action@v4
-      with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-      
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
