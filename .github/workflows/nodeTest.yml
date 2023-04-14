@@ -23,6 +23,11 @@ jobs:
           file: ./Docker/Dockerfile
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASS }}
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+          images: my-docker-hub-namespace/my-docker-hub-repository  
     - name: Docker Push
       if: success()
       uses: docker/build-push-action@v4
