@@ -16,6 +16,14 @@ jobs:
       run: npm --version
     - uses: actions/checkout@v3
     - run: npm test
-    - run: npm install
-    - run: node App.js
-      working-directory: ./src
+    - name: Docker Log and Push container
+      if: success()
+      uses: docker/login-action@v2
+      with:
+          username: ${{ secret.USER }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          if: success()
+          uses: docker/build-push-action@v4
+          push: true
+          tags: ganon117/app:latest
+      
