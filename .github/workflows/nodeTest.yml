@@ -22,8 +22,9 @@ jobs:
     - run: npm test     
     - name: Login to Docker Hub
       if: success()
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASS
+      with:
+          username: ${{ env.DOCKER_USER }}
+          password: ${{ env.DOCKER_PASS }}
     - name: Build Docker image
       run: |
           docker build -t myapp:latest .
