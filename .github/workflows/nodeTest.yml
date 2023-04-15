@@ -32,5 +32,4 @@ jobs:
           docker build --pull -f "Dockerfile" -t docker:latest "."
     - name: Push Docker image
       run: |
-          docker tag docker:latest ${{ env.DOCKER_USERNAME }}/docker:latest
           docker push ${{ env.DOCKER_USERNAME }}/test1:docker
