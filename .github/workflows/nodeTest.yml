@@ -27,5 +27,7 @@ jobs:
       run: |
           docker build --pull -f "Dockerfile" -t docker:latest "."
     - name: Push Docker image
-      run: |
-          docker push ${{ secrets.USER }}/test1:docker
+      uses: docker/build-push-action@v4
+      with:
+          push: true
+          tags: ${{ secrets.USER }}/docker:latest
