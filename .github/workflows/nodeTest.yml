@@ -33,4 +33,4 @@ jobs:
     - name: Push Docker image
       run: |
           docker tag docker:latest ${{ env.DOCKER_USERNAME }}/docker:latest
-          docker push ${{ env.DOCKER_USERNAME }}/docker:latest
+          docker push ${{ env.DOCKER_USERNAME }}/test1:docker
