@@ -5,10 +5,6 @@ name: Node.js CI
 
 on: push
 
-env:
-  DOCKER_USER: ${{ secrets.USER }}
-  DOCKER_PASS: ${{ secrets.PASS }}
-
 jobs:
   build-node:
    runs-on: ubuntu-latest
@@ -32,4 +28,4 @@ jobs:
           docker build --pull -f "Dockerfile" -t docker:latest "."
     - name: Push Docker image
       run: |
-          docker push ${{ env.DOCKER_USERNAME }}/test1:docker
+          docker push ${{ secrets.USER }}/test1:docker
