@@ -29,8 +29,8 @@ jobs:
           docker login -u ${{ secrets.USER }} -p ${{ secrets.PASS }}
     - name: Build Docker image
       run: |
-          docker build -t myapp:latest .
+          docker build --pull -f "Dockerfile" -t docker:latest "."
     - name: Push Docker image
       run: |
-          docker tag myapp:latest ${{ env.DOCKER_USERNAME }}/myapp:latest
-          docker push ${{ env.DOCKER_USERNAME }}/myapp:latest
+          docker tag docker:latest ${{ env.DOCKER_USERNAME }}/docker:latest
+          docker push ${{ env.DOCKER_USERNAME }}/docker:latest
