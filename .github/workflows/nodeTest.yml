@@ -6,7 +6,7 @@ name: Node.js CI
 on: push
 
 jobs:
-  test build:
+    test build:
            build-node:
            runs-on: ubuntu-latest
            steps:
@@ -18,7 +18,7 @@ jobs:
            - run: npm test
            - name: Login to Docker Hub
 
-  Create build and push to docker hub:
+    Create build and push to docker hub:
            if: success()
            uses: docker/setup-qemu-action@v2
            - name: Set up Docker Buildx
