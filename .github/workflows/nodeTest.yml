@@ -1,36 +1,30 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: Node.js CI
 
 on: push
 
 jobs:
-    test build:
-             build-node:
-             runs-on: ubuntu-latest
-             steps:
-             - name: Check version node
-               run: node --version
-             - name: Check version npm
-               run: npm --version
-             uses: actions/checkout@v3
-             run: npm test
-             
-
-    Create build and push to docker hub:
-                                      build-node:
-                                      runs-on: ubuntu-latest
-                                      steps:
-                                      - name: Set up Docker GMU
-                                      if: success()
-                                      uses: docker/setup-buildx-action@v2
-                                      name: Try Login
-                                      run: |
-                                             docker login -u ${{ secrets.USER }} -p ${{ secrets.PASS }}
-                                             docker build --pull -f "Dockerfile" -t docker:latest "."
-                                                - name: Set up Docker GMU
-                                                uses: docker/build-push-action@v4
-                                                with:
-                                                    push: true
-                                                    tags: ${{ secrets.USER }}/docker:latest
+  build-node:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Check version node
+      run: node --version
+    - name: Check version npm
+      run: npm --version
+    - uses: actions/checkout@v3
+    - run: npm test
+    - name: Login to Docker Hub
+      if: success()
+      uses: docker/setup-qemu-action@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Try Login
+      run: |
+          docker login -u ${{ secrets.USER }} -p ${{ secrets.PASS }}
+    - name: Build Docker image
+      run: |
+          docker build --pull -f "Dockerfile" -t docker:latest "."
+    - name: Push Docker image
+      uses: docker/build-push-action@v4
+      with:
+          push: true
+          tags: ${{ secrets.USER }}/docker:latest
