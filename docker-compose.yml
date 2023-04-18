@@ -11,7 +11,7 @@ services:
         target: /home/ansible_controller/ansible_files
   target1:
     build: 
-      context: ./testApp
+      context: ./
       dockerfile: Dockerfile
     container_name: ansible_target1
     ports:
