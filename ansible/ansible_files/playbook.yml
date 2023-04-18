@@ -1,0 +1,12 @@
+- name: Build containers with ansible
+  hosts: all
+  become: true
+  tasks:
+    - name: Ping Test to connection ports:
+      ansible.builtin.ping:
+    - name: RENAME Aplication
+      lineinfile:
+        path: /app/src/App.js
+        regexp: 'Hello World!'
+        line: 'Hello DevOps!'
+        state: present
